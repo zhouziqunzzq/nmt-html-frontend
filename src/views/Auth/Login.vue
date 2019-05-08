@@ -22,21 +22,6 @@
       <v-btn @click="submit" color="success">登录</v-btn>
       <v-btn @click="clear" color="warning">重置表单</v-btn>
     </form>
-
-    <v-snackbar
-        v-model="snackbar"
-        :color="snackbarColor"
-        :timeout="3000"
-    >
-      {{ errorMsg }}
-      <v-btn
-          dark
-          flat
-          @click="snackbar = false"
-      >
-        关闭
-      </v-btn>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -57,28 +42,25 @@
     data: () => ({
       username: "",
       password: "",
-      snackbar: false,
-      snackbarColor: "blue",
-      errorMsg: "",
     }),
     computed: {
       usernameErrors() {
         const errors: any[] = [];
-        if (!this.$v.username.$dirty) {
+        if (!this.$v.username!.$dirty) {
           return errors;
         }
-        !this.$v.username.maxLength && errors.push("用户名长度不能超过 20");
-        !this.$v.username.required && errors.push("请输入用户名");
+        !this.$v.username!.maxLength && errors.push("用户名长度不能超过 20");
+        !this.$v.username!.required && errors.push("请输入用户名");
         return errors;
       },
       passwordErrors() {
         const errors = [];
-        if (!this.$v.password.$dirty) {
+        if (!this.$v.password!.$dirty) {
           return errors;
         }
-        !this.$v.password.minLength && errors.push("密码长度必须大于 6");
-        !this.$v.password.maxLength && errors.push("密码长度必须小于 20");
-        !this.$v.password.required && errors.push("请输入密码");
+        !this.$v.password!.minLength && errors.push("密码长度必须大于 6");
+        !this.$v.password!.maxLength && errors.push("密码长度必须小于 20");
+        !this.$v.password!.required && errors.push("请输入密码");
         return errors;
       },
     },
@@ -98,11 +80,16 @@
               username: this.username,
               password: this.password,
             });
-          console.log(response.parsedBody);
-          if (response.parsedBody.result) {
-            this.showInfo(response.parsedBody.msg);
+          // console.log(response.parsedBody);
+          if (response.parsedBody!.result) {
+            this.showInfo(response.parsedBody!.msg);
+            this.$store.dispatch("login", {
+              id: response.parsedBody!.data.id,
+              username: this.username,
+            });
+            this.$router.push("/dashboard");
           } else {
-            this.showError(response.parsedBody.msg);
+            this.showError(response.parsedBody!.msg);
           }
 
         }
@@ -111,17 +98,12 @@
         this.$v.$reset();
         this.username = "";
         this.password = "";
-        this.rePassword = "";
       },
       showInfo(msg: string) {
-        this.errorMsg = msg;
-        this.snackbarColor = "blue";
-        this.snackbar = true;
+        this.$store.dispatch("showInfo", msg);
       },
       showError(msg: string) {
-        this.errorMsg = msg;
-        this.snackbarColor = "red";
-        this.snackbar = true;
+        this.$store.dispatch("showError", msg);
       },
     }
   });

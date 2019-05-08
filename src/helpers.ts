@@ -26,7 +26,10 @@ export const http = <T>(request: RequestInfo): Promise<IHttpResponse<T>> => {
 
 export const get = async <T>(
   path: string,
-  args: RequestInit = {method: 'get'},
+  args: RequestInit = {
+    method: 'get',
+    credentials: 'include',
+  },
 ): Promise<IHttpResponse<T>> => {
   return await http<T>(new Request(path, args));
 };
@@ -40,6 +43,7 @@ export const post = async <T>(
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
   },
 ): Promise<IHttpResponse<T>> => {
   return await http<T>(new Request(path, args));

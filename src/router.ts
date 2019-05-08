@@ -13,6 +13,11 @@ export default new Router({
       component: () => import('./components/HelloWorld.vue'),
     },
     {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('./views/Dashboard.vue'),
+    },
+    {
       path: '/auth/register',
       name: 'auth.register',
       component: () => import('./views/Auth/Register.vue'),
