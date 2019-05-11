@@ -98,6 +98,7 @@
           // already logged in
           items.push({title: "个人主页", link: "/dashboard", icon: "account_circle"});
         }
+        items.push({title: "翻译", link: "/translate", icon: "translate"});
         items.push({title: "关于", link: "/about", icon: "question_answer"});
         return items;
       }

@@ -28,6 +28,11 @@ export default new Router({
       component: () => import('./views/Auth/Login.vue'),
     },
     {
+      path: '/translate',
+      name: 'translate',
+      component: () => import('./views/Translate.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue'),
