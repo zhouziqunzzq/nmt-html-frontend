@@ -117,7 +117,7 @@
     name: "translate",
     validations: {
       srcSingle: {required, maxLength: maxLength(1024)},
-      srcPage: {required, maxLength: maxLength(1024)},
+      srcPage: {required},
     },
     data: () => ({
       // Single
@@ -233,9 +233,9 @@
       },
       translatePageAPI() {
         if (this.isPageChToEn) {
-          return "translatecepage";
+          return "translatehtml";
         } else {
-          return "translateecpage";
+          return "translatehtml";
         }
       },
     },
