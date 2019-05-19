@@ -3,7 +3,7 @@
     <v-toolbar app>
       <v-toolbar-side-icon @click="showDrawer = !showDrawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
-        <span>神经网络翻译</span>
+        <span>神经网络机器翻译</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-for="item in navItems"

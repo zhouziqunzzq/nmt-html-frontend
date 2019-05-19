@@ -1,7 +1,16 @@
 <template>
   <v-container>
-    <h1>{{user.username}}</h1>
-    <v-btn @click="logout" color="success">注销</v-btn>
+    <v-flex xs12 class="text-xs-center">
+      <v-card>
+        <v-card-title primary-title>
+          <h3 class="headline mb-0">欢迎您，{{ user.username }}</h3>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn @click="logout" color="success">注销</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
 
     <v-divider class="mx-2"></v-divider>
 
@@ -111,6 +120,10 @@
       }
     },
     created() {
+      if (this.user.id === -1) {
+        this.$router.push("/auth/login");
+        return;
+      }
       this.getTranslationHistory();
     },
     methods: {
