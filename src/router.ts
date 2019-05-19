@@ -8,9 +8,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'home',
-      component: () => import('./components/HelloWorld.vue'),
+      component: () => import('./views/Home.vue'),
     },
     {
       path: '/dashboard',

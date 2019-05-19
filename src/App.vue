@@ -3,7 +3,7 @@
     <v-toolbar app>
       <v-toolbar-side-icon @click="showDrawer = !showDrawer"></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
-        <span>NMT-HTML</span>
+        <span>神经网络翻译</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-for="item in navItems"
@@ -62,20 +62,22 @@
     </v-snackbar>
 
     <v-content>
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </v-content>
   </v-app>
 </template>
 
 <script lang="ts">
-  import HelloWorld from "./components/HelloWorld.vue";
+  import HelloWorld from "./views/Home.vue";
   import Vue from "vue";
   import {mapState} from "vuex";
 
   export default Vue.extend({
     name: "App",
     components: {
-      HelloWorld
+      //
     },
     data() {
       return {
@@ -88,7 +90,7 @@
         "user",
       ]),
       navItems() {
-        const items = [{title: "主页", link: "/home", icon: "dashboard"}];
+        const items = [{title: "主页", link: "/", icon: "dashboard"}];
         const user = this.$store.state.user;
         if (user.id === -1 || user.username === "") {
           // not logged in
