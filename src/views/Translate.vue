@@ -245,6 +245,7 @@
         if (this.$v.srcSingle!.$invalid) {
           return;
         } else {
+          this.translateSingleResult = "";
           const response = await post<{
             result: boolean,
             code: number,
