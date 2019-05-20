@@ -293,6 +293,7 @@
         if (this.$v.srcPage!.$invalid) {
           return;
         } else {
+          this.translatePageResult = "";
           const response = await post<{
             result: boolean,
             code: number,
