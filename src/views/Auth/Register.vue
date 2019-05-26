@@ -90,25 +90,28 @@
         if (this.$v.$invalid) {
           return;
         } else {
-          const response = await post<{
-            result: boolean,
-            code: number,
-            msg: string,
-            data: any,
-          }>(config.baseUrl + "auth/register",
-            {
-              username: this.username,
-              password: this.password,
-              rePassword: this.rePassword,
-            });
-          // console.log(response.parsedBody);
-          if (response.parsedBody!.result) {
-            this.showInfo(response.parsedBody!.msg + "，请登录");
-            this.$router.push("/auth/login");
-          } else {
-            this.showError(response.parsedBody!.msg);
+          try {
+            const response = await post<{
+              result: boolean,
+              code: number,
+              msg: string,
+              data: any,
+            }>(config.baseUrl + "auth/register",
+              {
+                username: this.username,
+                password: this.password,
+                rePassword: this.rePassword,
+              });
+            // console.log(response.parsedBody);
+            if (response.parsedBody!.result) {
+              this.showInfo(response.parsedBody!.msg + "，请登录");
+              this.$router.push("/auth/login");
+            } else {
+              this.showError(response.parsedBody!.msg);
+            }
+          } catch (response) {
+            this.showError("出错啦！详细信息：" + response);
           }
-
         }
       },
       clear() {
@@ -118,10 +121,10 @@
         this.rePassword = "";
       },
       showInfo(msg: string) {
-        this.$store.dispatch('showInfo', msg);
+        this.$store.dispatch("showInfo", msg);
       },
       showError(msg: string) {
-        this.$store.dispatch('showError', msg);
+        this.$store.dispatch("showError", msg);
       },
     }
   });

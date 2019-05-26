@@ -128,48 +128,60 @@
     },
     methods: {
       async logout() {
-        const response = await get<{
-          result: boolean,
-          code: number,
-          msg: string,
-          data: any,
-        }>(config.baseUrl + "auth/logout");
-        // console.log(response.parsedBody);
-        if (response.parsedBody.result) {
-          this.$store.dispatch("logout");
-          this.showInfo(response.parsedBody.msg);
-          this.$router.push("/auth/login");
-        } else {
-          this.showError(response.parsedBody.msg);
+        try {
+          const response = await get<{
+            result: boolean,
+            code: number,
+            msg: string,
+            data: any,
+          }>(config.baseUrl + "auth/logout");
+          // console.log(response.parsedBody);
+          if (response.parsedBody.result) {
+            this.$store.dispatch("logout");
+            this.showInfo(response.parsedBody.msg);
+            this.$router.push("/auth/login");
+          } else {
+            this.showError(response.parsedBody.msg);
+          }
+        } catch (response) {
+          this.showError("出错啦！详细信息：" + response);
         }
       },
       async getTranslationHistory() {
-        const response = await get<{
-          result: boolean,
-          code: number,
-          msg: string,
-          data: any,
-        }>(config.baseUrl + "translation/history");
-        if (response.parsedBody.result) {
-          this.transHistory = response.parsedBody.data;
-        } else {
-          this.showError(response.parsedBody.msg);
+        try {
+          const response = await get<{
+            result: boolean,
+            code: number,
+            msg: string,
+            data: any,
+          }>(config.baseUrl + "translation/history");
+          if (response.parsedBody.result) {
+            this.transHistory = response.parsedBody.data;
+          } else {
+            this.showError(response.parsedBody.msg);
+          }
+        } catch (response) {
+          this.showError("出错啦！详细信息：" + response);
         }
       },
       async deleteTranslationHistory(id: number) {
-        const response = await post<{
-          result: boolean,
-          code: number,
-          msg: string,
-          data: any,
-        }>(config.baseUrl + "translation/history/delete",
-          {
-            "id": id,
-          });
-        if (response.parsedBody.result) {
-          this.showInfo(response.parsedBody!.msg);
-        } else {
-          this.showError(response.parsedBody.msg);
+        try {
+          const response = await post<{
+            result: boolean,
+            code: number,
+            msg: string,
+            data: any,
+          }>(config.baseUrl + "translation/history/delete",
+            {
+              "id": id,
+            });
+          if (response.parsedBody.result) {
+            this.showInfo(response.parsedBody!.msg);
+          } else {
+            this.showError(response.parsedBody.msg);
+          }
+        } catch (response) {
+          this.showError("出错啦！详细信息：" + response);
         }
       },
       async deleteItem(item) {

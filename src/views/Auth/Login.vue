@@ -70,28 +70,31 @@
         if (this.$v.$invalid) {
           return;
         } else {
-          const response = await post<{
-            result: boolean,
-            code: number,
-            msg: string,
-            data: any,
-          }>(config.baseUrl + "auth/login",
-            {
-              username: this.username,
-              password: this.password,
-            });
-          // console.log(response.parsedBody);
-          if (response.parsedBody!.result) {
-            this.showInfo(response.parsedBody!.msg);
-            this.$store.dispatch("login", {
-              id: response.parsedBody!.data.id,
-              username: this.username,
-            });
-            this.$router.push("/dashboard");
-          } else {
-            this.showError(response.parsedBody!.msg);
+          try {
+            const response = await post<{
+              result: boolean,
+              code: number,
+              msg: string,
+              data: any,
+            }>(config.baseUrl + "auth/login",
+              {
+                username: this.username,
+                password: this.password,
+              });
+            // console.log(response.parsedBody);
+            if (response.parsedBody!.result) {
+              this.showInfo(response.parsedBody!.msg);
+              this.$store.dispatch("login", {
+                id: response.parsedBody!.data.id,
+                username: this.username,
+              });
+              this.$router.push("/dashboard");
+            } else {
+              this.showError(response.parsedBody!.msg);
+            }
+          } catch (response) {
+            this.showError("出错啦！详细信息：" + response);
           }
-
         }
       },
       clear() {
