@@ -144,6 +144,13 @@
           }
         }
       },
+      alignSingleAPI() {
+        if (this.isSingleChToEn) {
+          return "alignce";
+        } else {
+          return "alignec";
+        }
+      }
     },
     methods: {
       async translateSingle() {
@@ -152,6 +159,7 @@
           return;
         } else {
           this.translateSingleResult = "";
+          this.alignSingleResult = "";
           try {
             const response = await post<{
               result: boolean,
@@ -186,7 +194,7 @@
               code: number,
               msg: string,
               data: string,
-            }>(config.baseUrl + "align",
+            }>(config.baseUrl + this.alignSingleAPI,
               {
                 translation: this.translateSingleResult,
               });
