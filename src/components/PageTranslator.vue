@@ -89,9 +89,9 @@
       },
       translatePageAPI() {
         if (this.isPageChToEn) {
-          return "translatehtml";
+          return "translatecehtml";
         } else {
-          return "translatehtml";
+          return "translateechtml";
         }
       },
     },
